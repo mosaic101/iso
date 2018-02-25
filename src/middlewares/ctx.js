@@ -6,7 +6,7 @@
 /*   By: Jianjin Wu <mosaic101@foxmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/15 14:57:04 by JianJin Wu        #+#    #+#             */
-/*   Updated: 2018/02/14 02:51:09 by Jianjin Wu       ###   ########.fr       */
+/*   Updated: 2018/02/25 15:44:55 by Jianjin Wu       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ module.exports = async (ctx, next) => {
     ctx.body = {
       url: ctx.request.originalUrl,
       code: 1,
-      msg: 'ok',
-      data: data
+      message: 'ok',
+      data: data || null
     }
   }
   /**
@@ -60,25 +60,22 @@ module.exports = async (ctx, next) => {
       }
       // others
       else {
-        code = status
-        message = httpCode[status] || 'forbidden'
+        code = error.code || status || 403
+        message = error.message || httpCode[status] || 'forbidden'
       }
-      // make a record in error.log when status === 403
-      if (status === 403) {
-        logger.error({
-          method: ctx.request.method,
-          url: ctx.request.originalUrl,
-          msg: message,
-          stack: error.stack
-        })
-      }
+      // error log
+      logger.error({
+        method: ctx.request.method,
+        url: ctx.request.originalUrl,
+        message: message,
+        stack: error.stack
+      })
     }
     ctx.status = status
     ctx.body = {
       url: ctx.request.originalUrl,
       code: code,
-      msg: message,
-      error: error
+      message: message
     }
   }
   await next()
