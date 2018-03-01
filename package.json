@@ -13,7 +13,10 @@
   "author": "Jianjin Wu <mosaic101@foxmail.com>",
   "license": "MIT",
   "dependencies": {
+    "bencode": "^1.0.0",
+    "bittorrent-dht": "^8.0.1",
     "bluebird": "^3.5.1",
+    "btparse": "^1.0.2",
     "debug": "^2.6.3",
     "getconfig": "^4.4.1",
     "joi": "^13.1.2",
@@ -24,8 +27,8 @@
     "koa-router": "^7.1.1",
     "lodash": "^4.17.5",
     "log4js": "^2.5.3",
+    "magnet-uri": "^5.1.7",
     "moment": "^2.20.1",
-    "pug": "^2.0.0-rc.1",
     "session-file-store": "^1.2.0"
   },
   "devDependencies": {
